@@ -22,7 +22,7 @@ export async function getMarketStatus(): Promise<MarketStatus> {
 }
 
 export async function getBacktestData(): Promise<BacktestData> {
-  const { data } = await api.get<ApiResponse<BacktestData>>("/backtest");
+  const { data } = await api.get<ApiResponse<BacktestData>>("/backtest/run");
   if (!data.success) throw new Error(data.error || "Backtest API error");
   return data.data;
 }

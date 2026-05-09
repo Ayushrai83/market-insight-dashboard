@@ -2,11 +2,19 @@ import { NavLink, Outlet } from "react-router-dom";
 import { Activity, BarChart3, LineChart, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/hooks/useTheme";
+import {
+  UserButton,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+} from "@clerk/clerk-react";
 
 const navItem = ({ isActive }: { isActive: boolean }) =>
   cn(
     "inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
-    isActive ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+    isActive
+      ? "bg-primary/15 text-primary"
+      : "text-muted-foreground hover:bg-secondary hover:text-foreground",
   );
 
 export const Layout = () => {
@@ -21,23 +29,44 @@ export const Layout = () => {
             </div>
             <div className="leading-tight">
               <p className="text-sm font-bold tracking-tight">MDP Terminal</p>
-              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Market Direction Predictor</p>
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                Market Direction Predictor
+              </p>
             </div>
           </div>
           <nav className="flex items-center gap-1">
             <NavLink to="/" end className={navItem}>
-              <Activity className="h-4 w-4" /> <span className="hidden sm:inline">Dashboard</span>
+              <Activity className="h-4 w-4" />{" "}
+              <span className="hidden sm:inline">Dashboard</span>
             </NavLink>
             <NavLink to="/backtest" className={navItem}>
-              <BarChart3 className="h-4 w-4" /> <span className="hidden sm:inline">Backtest</span>
+              <BarChart3 className="h-4 w-4" />{" "}
+              <span className="hidden sm:inline">Backtest</span>
             </NavLink>
             <button
               onClick={toggle}
               aria-label="Toggle theme"
               className="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             >
-              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {theme === "dark" ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
             </button>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button className="ml-2 rounded-lg border border-border px-3 py-1.5 text-sm transition-colors hover:bg-secondary">
+                  Sign In
+                </button>
+              </SignInButton>
+            </SignedOut>
+
+            <SignedIn>
+              <div className="ml-2">
+                <UserButton afterSignOutUrl="/" />
+              </div>
+            </SignedIn>
           </nav>
         </div>
       </header>
@@ -46,7 +75,8 @@ export const Layout = () => {
       </main>
       <footer className="border-t border-border/40 py-6">
         <div className="container text-center text-xs text-muted-foreground">
-          Probability-based insights, not predictions. Always trade with risk management.
+          Probability-based insights, not predictions. Always trade with risk
+          management.
         </div>
       </footer>
     </div>

@@ -5,9 +5,11 @@ import { AccuracyChart } from "@/components/backtest/AccuracyChart";
 import { TradesTable } from "@/components/backtest/TradesTable";
 import { CardSkeleton, ErrorState } from "@/components/dash/Loader";
 import { Target, Repeat, MinusCircle } from "lucide-react";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 const Backtest = () => {
   const { data, isLoading, isError, error, refetch } = useBacktest();
+  useDocumentTitle("Backtest Performance");
 
   return (
     <div className="space-y-6">

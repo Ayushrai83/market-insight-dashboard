@@ -17,16 +17,38 @@ const META: Record<
 const valueTone = (v: number): "bullish" | "bearish" | "neutral" =>
   v > 0.1 ? "bullish" : v < -0.1 ? "bearish" : "neutral";
 
+const signalStrength = (value: number) => {
+  const abs = Math.abs(value);
+
+  if (abs >= 0.75) return "strong";
+  if (abs >= 0.4) return "medium";
+
+  return "weak";
+};
+
 export const SignalBreakdown = ({ data }: { data: MarketStatus }) => (
   <DashCard title="Signal Breakdown" subtitle="Per-signal value & confidence">
     <div className="grid gap-3 sm:grid-cols-2">
       {Object.entries(data?.signals || {}).map(([key, sig]) => {
         const m = META[key] || { label: key, desc: "", Icon: TrendingUp };
-        const tone = valueTone(sig.value);
+        const value = sig?.value ?? 0;
+
+        const tone = valueTone(value);
+        const strength = signalStrength(value);
         return (
           <div
             key={key}
-            className="rounded-lg border border-border/60 bg-secondary/30 p-3 transition-colors hover:border-primary/40"
+            className={`rounded-lg border bg-secondary/30 p-3 transition-all duration-200 hover:border-primary/40 ${
+              strength === "strong"
+                ? tone === "bullish"
+                  ? "border-bullish/40 shadow-[0_0_30px_rgba(34,197,94,0.18)]"
+                  : tone === "bearish"
+                    ? "border-bearish/40 shadow-[0_0_30px_rgba(239,68,68,0.18)]"
+                    : "border-neutral-signal/40"
+                : strength === "medium"
+                  ? "border-border/20"
+                  : "border-border/50 opacity-80"
+            }`}
           >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
@@ -40,9 +62,13 @@ export const SignalBreakdown = ({ data }: { data: MarketStatus }) => (
                   </p>
                 </div>
               </div>
-              <span className="font-mono text-sm tabular-nums">
-                {(sig?.value ?? 0) > 0 ? "+" : ""}
-                {(sig?.value ?? 0).toFixed(2)}
+              <span
+                className={`font-mono tabular-nums ${
+                  strength === "strong" ? "text-base font-bold" : "text-sm"
+                }`}
+              >
+                {value > 0 ? "+" : ""}
+                {value.toFixed(2)}
               </span>
             </div>
             <div className="mt-3">

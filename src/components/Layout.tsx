@@ -1,5 +1,13 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { Activity, BarChart3, LineChart, Moon, Sun } from "lucide-react";
+import {
+  Activity,
+  BarChart3,
+  Briefcase,
+  LineChart,
+  Moon,
+  Settings,
+  Sun,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/hooks/useTheme";
 import {
@@ -22,7 +30,7 @@ export const Layout = () => {
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
-        <div className="container flex h-16 items-center justify-between gap-4">
+        <div className="container flex h-16 items-center justify-between gap-6">
           <div className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/15 text-primary">
               <LineChart className="h-5 w-5" />
@@ -34,43 +42,65 @@ export const Layout = () => {
               </p>
             </div>
           </div>
-          <nav className="flex items-center gap-1">
-            <NavLink to="/" end className={navItem}>
-              <Activity className="h-4 w-4" />{" "}
-              <span className="hidden sm:inline">Dashboard</span>
-            </NavLink>
-            <NavLink to="/backtest" className={navItem}>
-              <BarChart3 className="h-4 w-4" />{" "}
-              <span className="hidden sm:inline">Backtest</span>
-            </NavLink>
-            <button
-              onClick={toggle}
-              aria-label="Toggle theme"
-              className="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-            >
-              {theme === "dark" ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
-            </button>
-            <SignedOut>
-              <SignInButton mode="modal">
-                <button className="ml-2 rounded-lg border border-border px-3 py-1.5 text-sm transition-colors hover:bg-secondary">
-                  Sign In
-                </button>
-              </SignInButton>
-            </SignedOut>
+          <nav className="flex items-center gap-3">
+            <div className="flex items-center gap-1 rounded-xl border border-border/60 bg-background/40 p-1">
+              <NavLink to="/" end className={navItem}>
+                <Activity className="h-4 w-4" />
+                <span className="hidden sm:inline">Dashboard</span>
+              </NavLink>
 
-            <SignedIn>
-              <div className="ml-2">
-                <UserButton afterSignOutUrl="/" />
-              </div>
-            </SignedIn>
+              <NavLink to="/backtest" className={navItem}>
+                <BarChart3 className="h-4 w-4" />
+                <span className="hidden sm:inline">Backtest</span>
+              </NavLink>
+
+              <button
+                disabled
+                className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground/50"
+              >
+                <Briefcase className="h-4 w-4" />
+                <span className="hidden sm:inline">Projects</span>
+              </button>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={toggle}
+                aria-label="Toggle theme"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              >
+                {theme === "dark" ? (
+                  <Sun className="h-4 w-4" />
+                ) : (
+                  <Moon className="h-4 w-4" />
+                )}
+              </button>
+
+              <button
+                disabled
+                className="hidden md:inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted-foreground/50"
+              >
+                <Settings className="h-4 w-4" />
+              </button>
+
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button className="rounded-lg border border-border px-3 py-1.5 text-sm transition-colors hover:bg-secondary">
+                    Sign In
+                  </button>
+                </SignInButton>
+              </SignedOut>
+
+              <SignedIn>
+                <div className="ml-1">
+                  <UserButton afterSignOutUrl="/" />
+                </div>
+              </SignedIn>
+            </div>
           </nav>
         </div>
       </header>
-      <main className="container py-6">
+      <main className="container py-6 space-y-6">
         <Outlet />
       </main>
       <footer className="border-t border-border/40 py-6">

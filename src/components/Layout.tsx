@@ -30,19 +30,21 @@ export const Layout = () => {
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
-        <div className="container flex h-16 items-center justify-between gap-6">
+        <div className="container flex h-16 items-center justify-between gap-3 overflow-hidden">
           <div className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/15 text-primary">
               <LineChart className="h-5 w-5" />
             </div>
-            <div className="leading-tight">
-              <p className="text-sm font-bold tracking-tight">MDP Terminal</p>
-              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+            <div className="min-w-0 leading-tight">
+              <p className="truncate text-sm font-bold tracking-tight">
+                MDP Terminal
+              </p>
+              <p className="truncate text-[9px] uppercase tracking-wide text-muted-foreground sm:text-[10px]">
                 Market Direction Predictor
               </p>
             </div>
           </div>
-          <nav className="flex items-center gap-3">
+          <nav className="flex shrink-0 items-center gap-2">
             <div className="flex items-center gap-1 rounded-xl border border-border/60 bg-background/40 p-1">
               <NavLink to="/" end className={navItem}>
                 <Activity className="h-4 w-4" />

@@ -58,7 +58,7 @@ const Backtest = () => {
             />
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-3">
+          <div className="grid gap-4 xl:grid-cols-3">
             <ConfidenceBucketsChart buckets={data.metrics.confidenceBuckets} />
             <AccuracyChart sample={data.sample} />
           </div>

@@ -41,10 +41,26 @@
 
     --radius: 0.75rem;
 
-    --gradient-card: linear-gradient(145deg, hsl(222 40% 11%) 0%, hsl(222 40% 8%) 100%);
-    --gradient-bullish: linear-gradient(135deg, hsl(142 71% 45%), hsl(160 71% 40%));
-    --gradient-bearish: linear-gradient(135deg, hsl(0 72% 51%), hsl(340 72% 45%));
-    --gradient-neutral: linear-gradient(135deg, hsl(45 93% 55%), hsl(30 93% 50%));
+    --gradient-card: linear-gradient(
+      145deg,
+      hsl(222 40% 11%) 0%,
+      hsl(222 40% 8%) 100%
+    );
+    --gradient-bullish: linear-gradient(
+      135deg,
+      hsl(142 71% 45%),
+      hsl(160 71% 40%)
+    );
+    --gradient-bearish: linear-gradient(
+      135deg,
+      hsl(0 72% 51%),
+      hsl(340 72% 45%)
+    );
+    --gradient-neutral: linear-gradient(
+      135deg,
+      hsl(45 93% 55%),
+      hsl(30 93% 50%)
+    );
     --shadow-card: 0 8px 30px -10px hsl(222 60% 2% / 0.5);
     --shadow-glow: 0 0 40px hsl(var(--primary) / 0.15);
   }
@@ -67,13 +83,19 @@
     --border: 214 32% 88%;
     --input: 214 32% 88%;
     --ring: 199 89% 48%;
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(210 40% 97%) 100%);
+    --gradient-card: linear-gradient(
+      145deg,
+      hsl(0 0% 100%) 0%,
+      hsl(210 40% 97%) 100%
+    );
     --shadow-card: 0 8px 30px -12px hsl(222 47% 30% / 0.15);
   }
 }
 
 @layer base {
-  * { @apply border-border; }
+  * {
+    @apply border-border;
+  }
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
@@ -81,28 +103,70 @@
 }
 
 @layer utilities {
-  .gradient-card { background: var(--gradient-card); }
-  .shadow-card { box-shadow: var(--shadow-card); }
-  .shadow-glow { box-shadow: var(--shadow-glow); }
-  .text-bullish { color: hsl(var(--bullish)); }
-  .text-bearish { color: hsl(var(--bearish)); }
-  .text-neutral-signal { color: hsl(var(--neutral)); }
-  .bg-bullish { background-color: hsl(var(--bullish)); }
-  .bg-bearish { background-color: hsl(var(--bearish)); }
-  .bg-neutral-signal { background-color: hsl(var(--neutral)); }
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  .text-bullish {
+    color: hsl(var(--bullish));
+  }
+  .text-bearish {
+    color: hsl(var(--bearish));
+  }
+  .text-neutral-signal {
+    color: hsl(var(--neutral));
+  }
+  .bg-bullish {
+    background-color: hsl(var(--bullish));
+  }
+  .bg-bearish {
+    background-color: hsl(var(--bearish));
+  }
+  .bg-neutral-signal {
+    background-color: hsl(var(--neutral));
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 .skeleton {
-  background: linear-gradient(90deg, hsl(var(--muted)) 0%, hsl(var(--secondary)) 50%, hsl(var(--muted)) 100%);
+  background: linear-gradient(
+    90deg,
+    hsl(var(--muted)) 0%,
+    hsl(var(--secondary)) 50%,
+    hsl(var(--muted)) 100%
+  );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 
 @keyframes progress-fill {
-  from { width: 0%; }
+  from {
+    width: 0%;
+  }
 }
-.animate-progress { animation: progress-fill 1s ease-out; }
+.animate-progress {
+  animation: progress-fill 1s ease-out;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  min-width: 0;
+}
